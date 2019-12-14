@@ -13,8 +13,8 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: tutum/mongodb
-          environment:
-            AUTH: no
+        environment:
+          AUTH: no
 
     working_directory: ~/repo
 
