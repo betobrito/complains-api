@@ -14,6 +14,10 @@
 	<name>complains-api</name>
 	<description>Project designed to help consumers get a review of some location. Getting a brief description of it and possible grievance complaints.</description>
 
+	<scm>
+		<connection>scm:git@github.com:betobrito/complains-api.git</connection>
+	</scm>
+
 	<properties>
 		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -26,6 +30,9 @@
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
 		<maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
 		<maven-war-plugin.version>3.2.2</maven-war-plugin.version>
+		<jackson.version>2.9.10</jackson.version>
+		<jjwt.version>0.10.7</jjwt.version>
+		<cucumber.version>4.7.2</cucumber.version>
 	</properties>
 
 	<dependencies>
@@ -59,14 +66,14 @@
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>4.7.2</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-spring</artifactId>
-			<version>4.7.2</version>
+			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -100,38 +107,38 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hibernate5</artifactId>
-			<version>2.9.10</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hppc</artifactId>
-			<version>2.9.10</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
-			<version>2.9.10</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-afterburner</artifactId>
-			<version>2.9.10</version>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-			<version>0.10.7</version>
+			<version>${jjwt.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-			<version>0.10.7</version>
+			<version>${jjwt.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>0.10.7</version>
+			<version>${jjwt.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -243,6 +250,14 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.11.2</version>
+				<configuration>
+					<tag>v${project.version}</tag>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
