@@ -8,5 +8,5 @@ public interface ComplaintService {
 
     Complaint create(Complaint complaint);
 
-    Complaint edit(Complaint complaint);
+    Complaint edit(String id, Complaint complaint);
 }

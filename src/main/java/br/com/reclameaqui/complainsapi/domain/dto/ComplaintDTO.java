@@ -1,24 +1,49 @@
-package br.com.reclameaqui.complainsapi.domain;
+package br.com.reclameaqui.complainsapi.domain.dto;
 
+import br.com.reclameaqui.complainsapi.domain.Complaint;
+import br.com.reclameaqui.complainsapi.shared.validation.Create;
+import br.com.reclameaqui.complainsapi.shared.validation.Edit;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ComplaintDTO {
 
+    @Null(groups = Create.class)
+    public String id;
+
+    @NotBlank(groups = {Create.class, Edit.class})
     public String title;
+
+    @NotBlank(groups = {Create.class, Edit.class})
     public String description;
+
+    @NotBlank(groups = {Create.class, Edit.class})
     public String locale;
+
+    @NotBlank(groups = {Create.class, Edit.class})
     public String company;
 
     public ComplaintDTO() {
     }
 
     public ComplaintDTO(Complaint complaint) {
+        this.id = complaint.getId();
         this.title = complaint.getTitle();
         this.description = complaint.getDescription();
         this.locale = complaint.getLocale();
         this.company = complaint.getCompany();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

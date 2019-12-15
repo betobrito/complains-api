@@ -1,14 +1,16 @@
 package br.com.reclameaqui.complainsapi.web.rest;
 
 import br.com.reclameaqui.complainsapi.domain.Complaint;
-import br.com.reclameaqui.complainsapi.domain.ComplaintDTO;
+import br.com.reclameaqui.complainsapi.domain.dto.ComplaintDTO;
 import br.com.reclameaqui.complainsapi.service.ComplaintService;
+import br.com.reclameaqui.complainsapi.shared.validation.Create;
+import br.com.reclameaqui.complainsapi.shared.validation.Edit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -35,7 +37,7 @@ public class ComplaintResource {
     }
 
     @PostMapping
-    public ResponseEntity<ComplaintDTO> create(@RequestBody ComplaintDTO complaintDTO) throws URISyntaxException {
+    public ResponseEntity<ComplaintDTO> create(@Validated(Create.class) @RequestBody ComplaintDTO complaintDTO) throws URISyntaxException {
         log.debug("Rest call method create complaint: {}", complaintDTO);
         final Complaint insertedComplaint = complaintService.create(complaintDTO.toEntity());
         return ResponseEntity
@@ -43,10 +45,10 @@ public class ComplaintResource {
                 .body(ComplaintDTO.of(insertedComplaint));
     }
 
-    @PutMapping
-    public ResponseEntity<ComplaintDTO> edit(@Valid @RequestBody ComplaintDTO complaint) throws URISyntaxException {
+    @PutMapping("/{id}")
+    public ResponseEntity<ComplaintDTO> edit(@PathVariable String id, @Validated(Edit.class) @RequestBody ComplaintDTO complaint) throws URISyntaxException {
         log.debug("Rest call method edit complaint: {}", complaint);
-        final Complaint editedComplaint = complaintService.edit(complaint.toEntity());
+        final Complaint editedComplaint = complaintService.edit(id, complaint.toEntity());
         return ResponseEntity
                 .created(new URI(API_COMPLAINT + BAR  + editedComplaint.getId()))
                 .body(ComplaintDTO.of(editedComplaint));

@@ -33,8 +33,8 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public Complaint edit(Complaint modifiedComplaint) {
-        final Complaint complaint = checkIfExistsComplaint(modifiedComplaint);
+    public Complaint edit(String id, Complaint modifiedComplaint) {
+        final Complaint complaint = find(id);
         return modifyingAttributesAllowed(modifiedComplaint, complaint);
     }
 
@@ -43,9 +43,5 @@ public class ComplaintServiceImpl implements ComplaintService {
                         .description(modifiedComplaint.getDescription())
                         .locale(modifiedComplaint.getLocale())
                         .company(modifiedComplaint.getCompany());
-    }
-
-    private Complaint checkIfExistsComplaint(Complaint modifiedComplaint) {
-        return find(modifiedComplaint.getId());
     }
 }
