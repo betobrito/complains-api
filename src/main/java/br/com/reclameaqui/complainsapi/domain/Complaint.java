@@ -6,12 +6,12 @@ import java.util.Objects;
 public class Complaint {
 
     @Id
-    public String id;
+    private String id;
 
-    public String title;
-    public String description;
-    public String locale;
-    public String company;
+    private String title;
+    private String description;
+    private String locale;
+    private String company;
 
     public Complaint() {
     }
@@ -21,6 +21,22 @@ public class Complaint {
         this.description = description;
         this.locale = locale;
         this.company = company;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public String getCompany() {
+        return company;
     }
 
     @Override
