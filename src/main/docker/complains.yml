@@ -1,0 +1,23 @@
+version: '2'
+services:
+  complains-mongodb:
+    image: tutum/mongodb
+    environment:
+      - AUTH=no
+    networks:
+      - internal
+    ports:
+      - 27017:27017
+      - 28017:28017
+  complains-app:
+    image: betobrito/complains-api:13
+    networks:
+      - internal
+    ports:
+      - 8080:8080
+      - 15370:15370
+    depends_on:
+      - complains-mongodb
+networks:
+  internal:
+    driver: bridge

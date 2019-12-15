@@ -51,7 +51,7 @@ jobs:
       - run: mvn clean package
 
       # build and push docker image to docker hub
-      - run: mvn clean compile jib:build -Dimage=betobrito/complains-api:$CIRCLE_BUILD_NUM
+      - run: mvn clean compile jib:build -Dimage=betobrito/complains-api:latest
 
       # store raw contents of src code
       - store_artifacts:

@@ -243,7 +243,7 @@
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>jib-maven-plugin</artifactId>
-				<version>0.10.1</version>
+				<version>1.6.1</version>
 				<configuration>
 					<from>
 						<image>openjdk:11-jdk-slim</image>
