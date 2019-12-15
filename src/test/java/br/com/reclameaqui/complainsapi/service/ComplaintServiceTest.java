@@ -80,6 +80,7 @@ public class ComplaintServiceTest {
 
         final Complaint editedComplaint = complaintService.edit(ID_ONE, this.complaint);
 
+        verify(complaintRepositoryMock).findById(ID_ONE);
         assertEquals(this.complaint, editedComplaint);
     }
 
@@ -111,5 +112,27 @@ public class ComplaintServiceTest {
 
         verify(complaintRepositoryMock).findComplaintsByLocaleAndCompany(TEST, TEST);
         assertEquals(this.complains, resultado);
+    }
+
+    @Test
+    public void shouldCallMethodDeleteDelegatingToTheRepository() {
+        when(complaintRepositoryMock.findById(ID_ONE)).thenReturn(this.optionalComplaint);
+
+        complaintService.delete(ID_ONE);
+
+        verify(complaintRepositoryMock).findById(ID_ONE);
+        verify(complaintRepositoryMock).delete(complaint);
+    }
+
+    @Test
+    public void shouldCallMethodDeleteThrowingExceptionNotFound() {
+        when(complaintRepositoryMock.findById(ID_ONE)).thenReturn(Optional.empty());
+
+        try{
+            complaintService.delete(ID_ONE);
+            fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
+        } catch (NotFoundException e) {
+            assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());
+        }
     }
 }

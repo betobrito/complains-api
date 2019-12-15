@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComplaintResourceTest {
@@ -99,5 +98,15 @@ public class ComplaintResourceTest {
     verify(complaintServiceMock).listByLocaleAndCompany(TEST, TEST);
     assertEquals(HttpStatus.OK, resultado.getStatusCode());
     assertEquals(this.complains, resultado.getBody());
+  }
+
+  @Test
+  public void shouldCallMethodDeleteComplaintDelegatingToTheService() {
+    when(complaintServiceMock.find(ID_ONE)).thenReturn(complaint);
+
+    ResponseEntity resultado = complaintResource.delete(ID_ONE);
+
+    verify(complaintServiceMock).delete(ID_ONE);
+    assertEquals(HttpStatus.OK, resultado.getStatusCode());
   }
 }

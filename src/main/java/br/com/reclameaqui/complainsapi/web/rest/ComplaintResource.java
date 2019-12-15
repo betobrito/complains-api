@@ -70,4 +70,11 @@ public class ComplaintResource {
         List<Complaint> complaints = complaintService.listByLocaleAndCompany(searchParameter.getLocale(), searchParameter.getCompany());
         return ResponseEntity.ok().body(convert(complaints));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ComplaintDTO> delete(@PathVariable String id) {
+        log.debug("Rest call method to delete complaint by id: {}", id);
+        complaintService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

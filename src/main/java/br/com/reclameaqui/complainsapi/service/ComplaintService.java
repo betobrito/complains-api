@@ -15,4 +15,6 @@ public interface ComplaintService {
     List<Complaint> listByLocale(String locale);
 
     List<Complaint> listByLocaleAndCompany(String locale, String company);
+
+    void delete(String id);
 }

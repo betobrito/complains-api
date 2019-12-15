@@ -49,6 +49,12 @@ public class ComplaintServiceImpl implements ComplaintService {
         return complaintRepository.findComplaintsByLocaleAndCompany(locale, company);
     }
 
+    @Override
+    public void delete(String id) {
+        final Complaint complaint = find(id);
+        complaintRepository.delete(complaint);
+    }
+
     private Complaint modifyingAttributesAllowed(Complaint modifiedComplaint, Complaint complaint) {
         return complaint.title(modifiedComplaint.getTitle())
                         .description(modifiedComplaint.getDescription());
