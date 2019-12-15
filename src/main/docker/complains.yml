@@ -10,7 +10,7 @@ services:
       - 27017:27017
       - 28017:28017
   complains-app:
-    image: betobrito/complains-api:13
+    image: betobrito/complains-api:latest
     networks:
       - internal
     ports:
