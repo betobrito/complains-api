@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface ComplaintRepository extends MongoRepository<Complaint, String> {
 
-
-    Complaint findByTitle(String title);
-    List<Complaint> findComplaintsByCompany(String company);
     List<Complaint> findComplaintsByLocale(String locale);
-
+    List<Complaint> findComplaintsByLocaleAndCompany(String locale, String company);
 }

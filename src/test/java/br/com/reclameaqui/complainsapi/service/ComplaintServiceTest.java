@@ -17,6 +17,7 @@ import java.util.Optional;
 import static br.com.reclameaqui.complainsapi.shared.Constants.Messages.MSG_NO_LOCATIONS_FOUND;
 import static br.com.reclameaqui.complainsapi.shared.TestConstants.Messages.MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED;
 import static br.com.reclameaqui.complainsapi.web.rest.ComplaintResourceTest.ID_ONE;
+import static br.com.reclameaqui.complainsapi.web.rest.ComplaintResourceTest.TEST;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
@@ -79,6 +80,7 @@ public class ComplaintServiceTest {
 
         final Complaint editedComplaint = complaintService.edit(ID_ONE, this.complaint);
 
+        verify(complaintRepositoryMock).findById(ID_ONE);
         assertEquals(this.complaint, editedComplaint);
     }
 
@@ -86,6 +88,48 @@ public class ComplaintServiceTest {
     public void shouldCallMethodEditWithComplaintNotFoundThrowingExceptionNotFound() {
         try{
             complaintService.edit(ID_ONE, this.complaint);
+            fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
+        } catch (NotFoundException e) {
+            assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldCallMethodListByLocaleDelegatingToTheRepository() {
+        when(complaintRepositoryMock.findComplaintsByLocale(TEST)).thenReturn(complains);
+
+        List<Complaint> resultado = complaintService.listByLocale(TEST);
+
+        verify(complaintRepositoryMock).findComplaintsByLocale(TEST);
+        assertEquals(this.complains, resultado);
+    }
+
+    @Test
+    public void shouldCallMethodListByLocaleAndCompanyDelegatingToTheRepository() {
+        when(complaintRepositoryMock.findComplaintsByLocaleAndCompany(TEST,TEST)).thenReturn(complains);
+
+        List<Complaint> resultado = complaintService.listByLocaleAndCompany(TEST, TEST);
+
+        verify(complaintRepositoryMock).findComplaintsByLocaleAndCompany(TEST, TEST);
+        assertEquals(this.complains, resultado);
+    }
+
+    @Test
+    public void shouldCallMethodDeleteDelegatingToTheRepository() {
+        when(complaintRepositoryMock.findById(ID_ONE)).thenReturn(this.optionalComplaint);
+
+        complaintService.delete(ID_ONE);
+
+        verify(complaintRepositoryMock).findById(ID_ONE);
+        verify(complaintRepositoryMock).delete(complaint);
+    }
+
+    @Test
+    public void shouldCallMethodDeleteThrowingExceptionNotFound() {
+        when(complaintRepositoryMock.findById(ID_ONE)).thenReturn(Optional.empty());
+
+        try{
+            complaintService.delete(ID_ONE);
             fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
         } catch (NotFoundException e) {
             assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());
