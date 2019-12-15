@@ -25,7 +25,7 @@ class ComplaintApiApplicationTests {
 	}
 
 	@BeforeEach
-	public void contexto() {
+	public void context() {
 		repository.deleteAll();
 		this.complaintOne = new Complaint(TESTE, TESTE, MACEIO, COMPANY_MACEIO_SHOPPING);
 		repository.save(complaintOne);
@@ -38,7 +38,4 @@ class ComplaintApiApplicationTests {
 		final List<Complaint> complaints = repository.findComplaintsByCompany(COMPANY_MACEIO_SHOPPING);
 		assertTrue(complaints.contains(this.complaintOne));
 	}
-
-
-
 }
