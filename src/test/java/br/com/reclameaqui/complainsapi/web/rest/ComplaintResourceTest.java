@@ -102,8 +102,6 @@ public class ComplaintResourceTest {
 
   @Test
   public void shouldCallMethodDeleteComplaintDelegatingToTheService() {
-    when(complaintServiceMock.find(ID_ONE)).thenReturn(complaint);
-
     ResponseEntity resultado = complaintResource.delete(ID_ONE);
 
     verify(complaintServiceMock).delete(ID_ONE);
