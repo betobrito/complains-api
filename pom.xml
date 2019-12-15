@@ -14,10 +14,6 @@
 	<name>complains-api</name>
 	<description>Project designed to help consumers get a review of some location. Getting a brief description of it and possible grievance complaints.</description>
 
-	<scm>
-		<connection>scm:git@github.com:betobrito/complains-api.git</connection>
-	</scm>
-
 	<properties>
 		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -250,11 +246,19 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-scm-plugin</artifactId>
-				<version>1.11.2</version>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>0.10.1</version>
 				<configuration>
-					<tag>v${project.version}</tag>
+					<from>
+						<image>openjdk:11-jdk-slim</image>
+					</from>
+					<container>
+						<ports>
+							<port>8080</port>
+							<port>15370</port>
+						</ports>
+					</container>
 				</configuration>
 			</plugin>
 		</plugins>
