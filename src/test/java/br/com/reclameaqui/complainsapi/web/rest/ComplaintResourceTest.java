@@ -2,6 +2,7 @@ package br.com.reclameaqui.complainsapi.web.rest;
 
 import br.com.reclameaqui.complainsapi.domain.Complaint;
 import br.com.reclameaqui.complainsapi.domain.dto.ComplaintDTO;
+import br.com.reclameaqui.complainsapi.domain.dto.SearchParameterDTO;
 import br.com.reclameaqui.complainsapi.service.ComplaintService;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 public class ComplaintResourceTest {
 
   public static final String ID_ONE = "1";
+  public static final String TEST = "Test";
 
   @Mock
   private ComplaintService complaintServiceMock;
@@ -31,16 +32,18 @@ public class ComplaintResourceTest {
   private ComplaintResource complaintResource;
   private ComplaintDTO complaintDTO;
   private Complaint complaint;
-  private Optional<Complaint> optionalComplaint;
   private List<Complaint> complains;
+  private SearchParameterDTO searchParameter;
 
   @Before
   public void context() {
     this.complaintResource = new ComplaintResource(complaintServiceMock);
     this.complaint = new Complaint();
     this.complaintDTO = new ComplaintDTO(complaint);
-    this.optionalComplaint = Optional.of(complaint);
     this.complains = new ArrayList<>();
+    this.searchParameter = new SearchParameterDTO();
+    this.searchParameter.setLocale(TEST);
+    this.searchParameter.setCompany(TEST);
   }
 
   @Test
@@ -66,7 +69,7 @@ public class ComplaintResourceTest {
   }
 
   @Test
-  public void shouldCallMethodEditDelegatingToTheConvertAndCreate() throws URISyntaxException {
+  public void shouldCallMethodEditDelegatingToTheConvertAndEdit() throws URISyntaxException {
     when(complaintServiceMock.edit(ID_ONE, complaint)).thenReturn(complaint);
 
     ResponseEntity resultado = complaintResource.edit(ID_ONE, complaintDTO);
@@ -76,5 +79,25 @@ public class ComplaintResourceTest {
     assertEquals(complaintDTO, resultado.getBody());
   }
 
+  @Test
+  public void shouldCallMethodListByLocaleDelegatingToTheRepository() {
+    when(complaintServiceMock.listByLocale(TEST)).thenReturn(complains);
 
+    ResponseEntity resultado = complaintResource.listByLocale(searchParameter);
+
+    verify(complaintServiceMock).listByLocale(TEST);
+    assertEquals(HttpStatus.OK, resultado.getStatusCode());
+    assertEquals(this.complains, resultado.getBody());
+  }
+
+  @Test
+  public void shouldCallMethodListByLocaleAndCompanyDelegatingToTheRepository() {
+    when(complaintServiceMock.listByLocaleAndCompany(TEST, TEST)).thenReturn(complains);
+
+    ResponseEntity resultado = complaintResource.listByLocaleAndCompany(searchParameter);
+
+    verify(complaintServiceMock).listByLocaleAndCompany(TEST, TEST);
+    assertEquals(HttpStatus.OK, resultado.getStatusCode());
+    assertEquals(this.complains, resultado.getBody());
+  }
 }

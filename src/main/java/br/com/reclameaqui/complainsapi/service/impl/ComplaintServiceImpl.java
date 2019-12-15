@@ -7,6 +7,7 @@ import br.com.reclameaqui.complainsapi.shared.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static br.com.reclameaqui.complainsapi.shared.Constants.Messages.MSG_NO_LOCATIONS_FOUND;
@@ -38,10 +39,18 @@ public class ComplaintServiceImpl implements ComplaintService {
         return modifyingAttributesAllowed(modifiedComplaint, complaint);
     }
 
+    @Override
+    public List<Complaint> listByLocale(String locale) {
+        return complaintRepository.findComplaintsByLocale(locale);
+    }
+
+    @Override
+    public List<Complaint> listByLocaleAndCompany(String locale, String company) {
+        return complaintRepository.findComplaintsByLocaleAndCompany(locale, company);
+    }
+
     private Complaint modifyingAttributesAllowed(Complaint modifiedComplaint, Complaint complaint) {
         return complaint.title(modifiedComplaint.getTitle())
-                        .description(modifiedComplaint.getDescription())
-                        .locale(modifiedComplaint.getLocale())
-                        .company(modifiedComplaint.getCompany());
+                        .description(modifiedComplaint.getDescription());
     }
 }

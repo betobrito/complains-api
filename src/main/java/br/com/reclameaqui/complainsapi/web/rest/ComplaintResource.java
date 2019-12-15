@@ -2,6 +2,7 @@ package br.com.reclameaqui.complainsapi.web.rest;
 
 import br.com.reclameaqui.complainsapi.domain.Complaint;
 import br.com.reclameaqui.complainsapi.domain.dto.ComplaintDTO;
+import br.com.reclameaqui.complainsapi.domain.dto.SearchParameterDTO;
 import br.com.reclameaqui.complainsapi.service.ComplaintService;
 import br.com.reclameaqui.complainsapi.shared.validation.Create;
 import br.com.reclameaqui.complainsapi.shared.validation.Edit;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
+import static br.com.reclameaqui.complainsapi.domain.dto.ComplaintDTO.convert;
 import static br.com.reclameaqui.complainsapi.shared.Constants.API_COMPLAINT;
 
 @RestController
@@ -52,5 +55,19 @@ public class ComplaintResource {
         return ResponseEntity
                 .created(new URI(API_COMPLAINT + BAR  + editedComplaint.getId()))
                 .body(ComplaintDTO.of(editedComplaint));
+    }
+
+    @PostMapping("/locale")
+    public ResponseEntity<List<ComplaintDTO>> listByLocale(@RequestBody SearchParameterDTO searchParameter) {
+        log.debug("Rest call method to list complaints by locale: {}", searchParameter.getLocale());
+        List<Complaint> complaints = complaintService.listByLocale(searchParameter.getLocale());
+        return ResponseEntity.ok().body(convert(complaints));
+    }
+
+    @PostMapping("/locale/company")
+    public ResponseEntity<List<ComplaintDTO>> listByLocaleAndCompany(@RequestBody SearchParameterDTO searchParameter) {
+        log.debug("Rest call method to list complains by locale and company: {} - {}", searchParameter.getLocale(), searchParameter.getCompany());
+        List<Complaint> complaints = complaintService.listByLocaleAndCompany(searchParameter.getLocale(), searchParameter.getCompany());
+        return ResponseEntity.ok().body(convert(complaints));
     }
 }
