@@ -1,6 +1,7 @@
 package br.com.reclameaqui.complainsapi.domain;
 
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+
 import java.util.Objects;
 
 public class Complaint {
