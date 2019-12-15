@@ -1,7 +1,7 @@
 package br.com.reclameaqui.complainsapi.web.rest;
 
 import br.com.reclameaqui.complainsapi.domain.Complaint;
-import br.com.reclameaqui.complainsapi.domain.ComplaintDTO;
+import br.com.reclameaqui.complainsapi.domain.dto.ComplaintDTO;
 import br.com.reclameaqui.complainsapi.service.ComplaintService;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,11 +67,11 @@ public class ComplaintResourceTest {
 
   @Test
   public void shouldCallMethodEditDelegatingToTheConvertAndCreate() throws URISyntaxException {
-    when(complaintServiceMock.edit(complaint)).thenReturn(complaint);
+    when(complaintServiceMock.edit(ID_ONE, complaint)).thenReturn(complaint);
 
-    ResponseEntity resultado = complaintResource.edit(complaintDTO);
+    ResponseEntity resultado = complaintResource.edit(ID_ONE, complaintDTO);
 
-    verify(complaintServiceMock).edit(complaint);
+    verify(complaintServiceMock).edit(ID_ONE, complaint);
     assertEquals(HttpStatus.CREATED, resultado.getStatusCode());
     assertEquals(complaintDTO, resultado.getBody());
   }

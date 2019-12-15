@@ -75,9 +75,9 @@ public class ComplaintServiceTest {
 
     @Test
     public void shouldCallMethodEditDelegatingToTheRepository() {
-        when(complaintRepositoryMock.findById(this.complaint.getId())).thenReturn(optionalComplaint);
+        when(complaintRepositoryMock.findById(ID_ONE)).thenReturn(optionalComplaint);
 
-        final Complaint editedComplaint = complaintService.edit(this.complaint);
+        final Complaint editedComplaint = complaintService.edit(ID_ONE, this.complaint);
 
         assertEquals(this.complaint, editedComplaint);
     }
@@ -85,7 +85,7 @@ public class ComplaintServiceTest {
     @Test
     public void shouldCallMethodEditWithComplaintNotFoundThrowingExceptionNotFound() {
         try{
-            complaintService.edit(this.complaint);
+            complaintService.edit(ID_ONE, this.complaint);
             fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
         } catch (NotFoundException e) {
             assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());
