@@ -6,12 +6,12 @@ import br.com.reclameaqui.complainsapi.service.ComplaintService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static br.com.reclameaqui.complainsapi.shared.Constantes.API_COMPLAINT;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import static br.com.reclameaqui.complainsapi.shared.Constants.API_COMPLAINT;
 
 @RestController
 @RequestMapping(API_COMPLAINT)
@@ -30,5 +30,14 @@ public class ComplaintResource {
         log.debug("Rest call method to get specific complaint by id: {}", id);
         Complaint complaint = complaintService.find(id);
         return ResponseEntity.ok().body(ComplaintDTO.of(complaint));
+    }
+
+    @PostMapping
+    public ResponseEntity<ComplaintDTO> create(@RequestBody ComplaintDTO complaintDTO) throws URISyntaxException {
+        log.debug("Rest call method create complaintDTO: {}", complaintDTO);
+        final Complaint insertedComplaint = complaintService.create(complaintDTO.toEntity());
+        return ResponseEntity
+                .created(new URI(API_COMPLAINT + insertedComplaint.getId()))
+                .body(ComplaintDTO.of(insertedComplaint));
     }
 }

@@ -1,10 +1,11 @@
 package br.com.reclameaqui.complainsapi.shared;
 
-public interface Constantes {
+public interface Constants {
 
     String API_COMPLAINT = "/complaint";
 
-    interface Mensagens {
+    interface Messages {
+        String MSG_NO_LOCATIONS_FOUND = "No locations found with this id.";
     }
 
     interface Jwt {

@@ -11,6 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +51,17 @@ public class ComplaintResourceTest {
 
     verify(complaintServiceMock).find(ID_ONE);
     assertEquals(HttpStatus.OK, resultado.getStatusCode());
+    assertEquals(complaintDTO, resultado.getBody());
+  }
+
+  @Test
+  public void shouldCallMethodCreateDelegatingToTheConvertAndCreate() throws URISyntaxException {
+    when(complaintServiceMock.create(complaint)).thenReturn(complaint);
+
+    ResponseEntity resultado = complaintResource.create(complaintDTO);
+
+    verify(complaintServiceMock).create(complaint);
+    assertEquals(HttpStatus.CREATED, resultado.getStatusCode());
     assertEquals(complaintDTO, resultado.getBody());
   }
 
