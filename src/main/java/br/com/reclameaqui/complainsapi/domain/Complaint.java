@@ -23,6 +23,10 @@ public class Complaint {
         this.company = company;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }

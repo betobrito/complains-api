@@ -17,8 +17,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static br.com.reclameaqui.complainsapi.shared.Constantes.Jwt.KEY_ROLES;
-import static br.com.reclameaqui.complainsapi.shared.Constantes.Jwt.KEY_USER;
+import static br.com.reclameaqui.complainsapi.shared.Constants.Jwt.KEY_ROLES;
+import static br.com.reclameaqui.complainsapi.shared.Constants.Jwt.KEY_USER;
 
 @Component
 public class TokenProvider {

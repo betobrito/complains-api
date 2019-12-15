@@ -5,4 +5,6 @@ import br.com.reclameaqui.complainsapi.domain.Complaint;
 public interface ComplaintService {
 
     Complaint find(String id);
+
+    Complaint create(Complaint complaint);
 }
