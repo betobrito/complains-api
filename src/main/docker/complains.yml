@@ -15,7 +15,6 @@ services:
       - internal
     ports:
       - 8080:8080
-      - 15370:15370
     depends_on:
       - complains-mongodb
 networks:

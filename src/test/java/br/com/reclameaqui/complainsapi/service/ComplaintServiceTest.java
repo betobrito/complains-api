@@ -30,25 +30,25 @@ public class ComplaintServiceTest {
     private ComplaintService complaintService;
 
     private Complaint complaint;
-    private Optional<Complaint> optionalPlace;
-    private List<Complaint> places;
+    private Optional<Complaint> optionalComplaint;
+    private List<Complaint> complains;
 
     @Before
     public void context() {
         this.complaintService = new ComplaintServiceImpl(complaintRepositoryMock);
         this.complaint = new Complaint();
-        this.optionalPlace = Optional.of(complaint);
-        this.places = new ArrayList<>();
+        this.optionalComplaint = Optional.of(complaint);
+        this.complains = new ArrayList<>();
     }
 
     @Test
     public void shouldCallMethodFindDelegatingToTheRepository() {
-        when(complaintRepositoryMock.findById(ID_ONE)).thenReturn(this.optionalPlace);
+        when(complaintRepositoryMock.findById(ID_ONE)).thenReturn(this.optionalComplaint);
 
-        final Complaint placeReturning = complaintService.find(ID_ONE);
+        final Complaint complaintReturning = complaintService.find(ID_ONE);
 
         verify(complaintRepositoryMock).findById(ID_ONE);
-        assertEquals(placeReturning, this.complaint);
+        assertEquals(complaintReturning, this.complaint);
     }
 
     @Test
@@ -57,6 +57,35 @@ public class ComplaintServiceTest {
 
         try{
             complaintService.find(ID_ONE);
+            fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
+        } catch (NotFoundException e) {
+            assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldCallMethodCreateDelegatingToTheRepository() {
+        when(complaintRepositoryMock.save(this.complaint)).thenReturn(this.complaint);
+
+        final Complaint returnComplaint = complaintService.create(this.complaint);
+
+        verify(complaintRepositoryMock).save(this.complaint);
+        assertEquals(returnComplaint, this.complaint);
+    }
+
+    @Test
+    public void shouldCallMethodEditDelegatingToTheRepository() {
+        when(complaintRepositoryMock.findById(this.complaint.getId())).thenReturn(optionalComplaint);
+
+        final Complaint editedComplaint = complaintService.edit(this.complaint);
+
+        assertEquals(this.complaint, editedComplaint);
+    }
+
+    @Test
+    public void shouldCallMethodEditWithComplaintNotFoundThrowingExceptionNotFound() {
+        try{
+            complaintService.edit(this.complaint);
             fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
         } catch (NotFoundException e) {
             assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());

@@ -44,7 +44,7 @@ public class ComplaintResourceTest {
   }
 
   @Test
-  public void shouldCallMethodGetSpecificPlaceDelegatingToTheService() {
+  public void shouldCallMethodGetSpecificComplaintDelegatingToTheService() {
     when(complaintServiceMock.find(ID_ONE)).thenReturn(complaint);
 
     ResponseEntity resultado = complaintResource.find(ID_ONE);
@@ -64,5 +64,17 @@ public class ComplaintResourceTest {
     assertEquals(HttpStatus.CREATED, resultado.getStatusCode());
     assertEquals(complaintDTO, resultado.getBody());
   }
+
+  @Test
+  public void shouldCallMethodEditDelegatingToTheConvertAndCreate() throws URISyntaxException {
+    when(complaintServiceMock.edit(complaint)).thenReturn(complaint);
+
+    ResponseEntity resultado = complaintResource.edit(complaintDTO);
+
+    verify(complaintServiceMock).edit(complaint);
+    assertEquals(HttpStatus.CREATED, resultado.getStatusCode());
+    assertEquals(complaintDTO, resultado.getBody());
+  }
+
 
 }
