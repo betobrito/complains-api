@@ -23,12 +23,29 @@ public class ComplaintServiceImpl implements ComplaintService {
 
     @Override
     public Complaint find(String id) {
-        final Optional<Complaint> optionalPlace = complaintRepository.findById(id);
-        return optionalPlace.orElseThrow(() -> new NotFoundException(MSG_NO_LOCATIONS_FOUND));
+        final Optional<Complaint> optionalComplaint = complaintRepository.findById(id);
+        return optionalComplaint.orElseThrow(() -> new NotFoundException(MSG_NO_LOCATIONS_FOUND));
     }
 
     @Override
     public Complaint create(Complaint complaint) {
-        throw new UnsupportedOperationException("Not implemented.");
+        return complaintRepository.save(complaint);
+    }
+
+    @Override
+    public Complaint edit(Complaint modifiedComplaint) {
+        final Complaint complaint = checkIfExistsComplaint(modifiedComplaint);
+        return modifyingAttributesAllowed(modifiedComplaint, complaint);
+    }
+
+    private Complaint modifyingAttributesAllowed(Complaint modifiedComplaint, Complaint complaint) {
+        return complaint.title(modifiedComplaint.getTitle())
+                        .description(modifiedComplaint.getDescription())
+                        .locale(modifiedComplaint.getLocale())
+                        .company(modifiedComplaint.getCompany());
+    }
+
+    private Complaint checkIfExistsComplaint(Complaint modifiedComplaint) {
+        return find(modifiedComplaint.getId());
     }
 }

@@ -7,4 +7,6 @@ public interface ComplaintService {
     Complaint find(String id);
 
     Complaint create(Complaint complaint);
+
+    Complaint edit(Complaint complaint);
 }

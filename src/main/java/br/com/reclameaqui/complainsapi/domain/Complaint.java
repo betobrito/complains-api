@@ -43,6 +43,27 @@ public class Complaint {
         return company;
     }
 
+    public Complaint title(String title){
+        this.title = title;
+        return this;
+    }
+
+    public Complaint description(String description){
+        this.description = description;
+        return this;
+    }
+
+    public Complaint locale(String locale){
+        this.locale = locale;
+        return this;
+    }
+
+
+    public Complaint company(String company){
+        this.company = company;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
