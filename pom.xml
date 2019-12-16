@@ -223,7 +223,7 @@
 				<version>1.6.1</version>
 				<configuration>
 					<from>
-						<image>openjdk:11-jdk-slim</image>
+						<image>openjdk:8-jdk-slim</image>
 					</from>
 					<container>
 						<ports>
