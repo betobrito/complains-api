@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import static br.com.reclameaqui.complainsapi.shared.Constants.API_COMPLAINT;
+import static br.com.reclameaqui.complainsapi.shared.Constants.BAR;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -78,4 +79,9 @@ public class FunctionalityStepDefs extends StepDefs {
         assertEquals(message, erros.get(0).getMessage());
     }
 
+    @Given("Since you should edited a complaint with the following information: id {string} title {string}, locale {string}, company {string}")
+    public void sinceYouShouldEditedAComplaintWithTheFollowingInformationIdTitleLocaleCompany(String id, String title, String locale, String company) throws Exception {
+        ComplaintDTO complaintDTO = new ComplaintDTO().id(id).title(title).locale(locale).company(company);
+        mockPut(API_COMPLAINT + BAR + id, complaintDTO);
+    }
 }

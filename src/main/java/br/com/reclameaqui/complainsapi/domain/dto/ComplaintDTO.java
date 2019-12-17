@@ -77,8 +77,8 @@ public class ComplaintDTO {
         this.company = company;
     }
 
-    public static ComplaintDTO of(Complaint lei){
-        return new ComplaintDTO(lei);
+    public static ComplaintDTO of(Complaint complaint){
+        return new ComplaintDTO(complaint);
     }
 
     public Complaint toEntity(){

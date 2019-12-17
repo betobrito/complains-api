@@ -77,6 +77,7 @@ public class ComplaintServiceTest {
     @Test
     public void shouldCallMethodEditDelegatingToTheRepository() {
         when(complaintRepositoryMock.findById(ID_ONE)).thenReturn(optionalComplaint);
+        when(complaintRepositoryMock.save(complaint)).thenReturn(complaint);
 
         final Complaint editedComplaint = complaintService.edit(ID_ONE, this.complaint);
 

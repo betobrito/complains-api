@@ -2,6 +2,7 @@ package br.com.reclameaqui.complainsapi.shared;
 
 public interface Constants {
 
+    String BAR = "/";
     String API_COMPLAINT = "/complaint";
 
     interface Messages {
