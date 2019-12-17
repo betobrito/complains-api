@@ -34,9 +34,10 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public Complaint edit(String id, Complaint modifiedComplaint) {
-        final Complaint complaint = find(id);
-        return modifyingAttributesAllowed(modifiedComplaint, complaint);
+    public Complaint edit(String id, Complaint complaint) {
+        final Complaint complaintReturn = find(id);
+        final Complaint modifiedComplaint = modifyingAttributesAllowed(complaint, complaintReturn);
+        return complaintRepository.save(modifiedComplaint);
     }
 
     @Override

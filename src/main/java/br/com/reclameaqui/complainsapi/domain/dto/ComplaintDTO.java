@@ -18,7 +18,6 @@ public class ComplaintDTO {
     @NotBlank(groups = {Create.class, Edit.class})
     public String title;
 
-    @NotBlank(groups = {Create.class, Edit.class})
     public String description;
 
     @NotBlank(groups = {Create.class, Edit.class})
@@ -78,8 +77,8 @@ public class ComplaintDTO {
         this.company = company;
     }
 
-    public static ComplaintDTO of(Complaint lei){
-        return new ComplaintDTO(lei);
+    public static ComplaintDTO of(Complaint complaint){
+        return new ComplaintDTO(complaint);
     }
 
     public Complaint toEntity(){
@@ -88,6 +87,32 @@ public class ComplaintDTO {
 
     public static List<ComplaintDTO> convert(List<Complaint> complains){
         return complains.stream().map(ComplaintDTO::new).collect(Collectors.toList());
+    }
+
+    public ComplaintDTO id(String id){
+        this.id = id;
+        return this;
+    }
+
+    public ComplaintDTO title(String title){
+        this.title = title;
+        return this;
+    }
+
+    public ComplaintDTO description(String description){
+        this.description = description;
+        return this;
+    }
+
+    public ComplaintDTO locale(String locale){
+        this.locale = locale;
+        return this;
+    }
+
+
+    public ComplaintDTO company(String company){
+        this.company = company;
+        return this;
     }
 
     @Override

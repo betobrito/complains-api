@@ -16,14 +16,14 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.com.reclameaqui.complainsapi.util.TestConstant.ID_ONE;
+import static br.com.reclameaqui.complainsapi.util.TestConstant.TEST;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComplaintResourceTest {
-
-  public static final String ID_ONE = "1";
-  public static final String TEST = "Test";
 
   @Mock
   private ComplaintService complaintServiceMock;

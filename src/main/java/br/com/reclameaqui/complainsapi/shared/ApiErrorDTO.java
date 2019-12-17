@@ -4,35 +4,35 @@ import java.io.Serializable;
 
 public class ApiErrorDTO implements Serializable {
 
-    private String campo;
-    private String mensagem;
+    private String field;
+    private String message;
 
     public ApiErrorDTO() {
     }
 
-    public ApiErrorDTO(String campo, String mensagem) {
-        this.campo = campo;
-        this.mensagem = mensagem;
+    public ApiErrorDTO(String field, String message) {
+        this.field = field;
+        this.message = message;
     }
 
-    public ApiErrorDTO(String mensagem) {
-        this.mensagem = mensagem;
+    public ApiErrorDTO(String message) {
+        this.message = message;
     }
 
-    public String getCampo() {
-        return campo;
+    public String getField() {
+        return field;
     }
 
-    public void setCampo(String campo) {
-        this.campo = campo;
+    public void setField(String field) {
+        this.field = field;
     }
 
-    public String getMensagem() {
-        return mensagem;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

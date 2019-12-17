@@ -18,12 +18,12 @@ import java.util.List;
 
 import static br.com.reclameaqui.complainsapi.domain.dto.ComplaintDTO.convert;
 import static br.com.reclameaqui.complainsapi.shared.Constants.API_COMPLAINT;
+import static br.com.reclameaqui.complainsapi.shared.Constants.BAR;
 
 @RestController
 @RequestMapping(API_COMPLAINT)
 public class ComplaintResource {
 
-    public static final String BAR = "/";
     private final Logger log = LoggerFactory.getLogger(ComplaintResource.class);
 
     private final ComplaintService complaintService;
