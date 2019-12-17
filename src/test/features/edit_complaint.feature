@@ -8,7 +8,7 @@ Feature: Edit Complaint
         Given Since you should edited a complaint with the following information: id "1" title "Parking", locale "Maceió", company "Maceió Shopping"
         Then should return a complaint with title "Parking", locale "Maceió", company "Maceió Shopping"
 
-    Scenario: 02 - untitled complaint edit
+    Scenario: 02 - complaint edited without title
         Given Since you should edited a complaint with the following information: id "1" title "", locale "Arapiraca", company "Shopping"
         Then should return an error with status bad request
         And should return a error message list "must not be blank"
