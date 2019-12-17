@@ -44,6 +44,11 @@ public class Complaint {
         return company;
     }
 
+    public Complaint id(String id){
+        this.id = id;
+        return this;
+    }
+
     public Complaint title(String title){
         this.title = title;
         return this;

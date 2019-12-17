@@ -16,8 +16,8 @@ import java.util.Optional;
 
 import static br.com.reclameaqui.complainsapi.shared.Constants.Messages.MSG_NO_LOCATIONS_FOUND;
 import static br.com.reclameaqui.complainsapi.shared.TestConstants.Messages.MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED;
-import static br.com.reclameaqui.complainsapi.web.rest.ComplaintResourceTest.ID_ONE;
-import static br.com.reclameaqui.complainsapi.web.rest.ComplaintResourceTest.TEST;
+import static br.com.reclameaqui.complainsapi.util.TestConstant.ID_ONE;
+import static br.com.reclameaqui.complainsapi.util.TestConstant.TEST;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
