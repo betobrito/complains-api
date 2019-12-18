@@ -57,7 +57,8 @@ Sample body for performing the above functionality post request
 Sample body for performing the above functionality post request
     
     {
-      "locale": "string"
+      "locale": "string",
+      "company": "string"
     }
 
 ## Development
