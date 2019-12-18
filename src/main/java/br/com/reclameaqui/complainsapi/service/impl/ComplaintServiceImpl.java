@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.reclameaqui.complainsapi.shared.Constants.Messages.MSG_NO_LOCATIONS_FOUND;
+import static br.com.reclameaqui.complainsapi.shared.Constants.Messages.MSG_NO_COMPLAINTS_FOUND;
 
 @Service
 @Transactional
@@ -25,7 +25,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     @Override
     public Complaint find(String id) {
         final Optional<Complaint> optionalComplaint = complaintRepository.findById(id);
-        return optionalComplaint.orElseThrow(() -> new NotFoundException(MSG_NO_LOCATIONS_FOUND));
+        return optionalComplaint.orElseThrow(() -> new NotFoundException(MSG_NO_COMPLAINTS_FOUND));
     }
 
     @Override

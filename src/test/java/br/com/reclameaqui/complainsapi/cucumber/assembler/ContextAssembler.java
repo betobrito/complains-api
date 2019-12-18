@@ -7,4 +7,6 @@ public interface ContextAssembler {
     void clearTestData();
     void addComplaints();
     ComplaintDTO findByTitle(String id);
+
+    ComplaintDTO find(String id);
 }

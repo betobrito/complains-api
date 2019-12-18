@@ -47,6 +47,13 @@ public abstract class StepDefs {
             .accept(APPLICATION_JSON));
     }
 
+    private ResultActions performDelete(String url, MediaType contentType, MediaType accept, Object... uriVars) throws Exception {
+        return restMockMvc.perform(MockMvcRequestBuilders.delete(url, uriVars)
+                .header("Origin","*")
+                .contentType(contentType)
+                .accept(accept));
+    }
+
     private ResultActions performGet(String url, MediaType contentType, MediaType accept, Object... uriVars) throws Exception {
         return restMockMvc.perform(MockMvcRequestBuilders.get(url, uriVars)
                             .header("Origin","*")
@@ -64,6 +71,10 @@ public abstract class StepDefs {
 
     protected void mockPut(String url, Object content, Object... urlVars) throws Exception {
         actions = perform(content, put(url, urlVars));
+    }
+
+    protected void mockDelete(String url, Object... urlVars) throws Exception {
+        actions = performDelete(url, APPLICATION_JSON, APPLICATION_JSON, urlVars);
     }
 
     protected List<String> obterMensagensDeErroRetornada() {

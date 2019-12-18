@@ -9,4 +9,6 @@ public interface HelperContext {
     void insertComplaint(Complaint complaint);
 
     Complaint findByTitle(String title);
+
+    Complaint find(String id);
 }

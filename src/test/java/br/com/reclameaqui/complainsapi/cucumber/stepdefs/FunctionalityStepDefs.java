@@ -2,6 +2,7 @@ package br.com.reclameaqui.complainsapi.cucumber.stepdefs;
 
 import br.com.reclameaqui.complainsapi.domain.dto.ComplaintDTO;
 import br.com.reclameaqui.complainsapi.shared.ApiErrorDTO;
+import br.com.reclameaqui.complainsapi.shared.Constants;
 import br.com.reclameaqui.complainsapi.util.JsonConverter;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static br.com.reclameaqui.complainsapi.shared.Constants.API_COMPLAINT;
 import static br.com.reclameaqui.complainsapi.shared.Constants.BAR;
+import static br.com.reclameaqui.complainsapi.shared.Constants.Messages.MSG_NO_COMPLAINTS_FOUND;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -83,5 +85,20 @@ public class FunctionalityStepDefs extends StepDefs {
     public void sinceYouShouldEditedAComplaintWithTheFollowingInformationIdTitleLocaleCompany(String id, String title, String locale, String company) throws Exception {
         ComplaintDTO complaintDTO = new ComplaintDTO().id(id).title(title).locale(locale).company(company);
         mockPut(API_COMPLAINT + BAR + id, complaintDTO);
+    }
+
+    @Given("that the complaint to be deleted has id {string}")
+    public void thatTheComplaintToBeDeletedHasId(String id) throws Exception {
+        mockDelete(API_COMPLAINT+"/{id}", id);
+    }
+
+    @Then("should return status code ok and no objects found with id {string}")
+    public void shouldReturnStatusCodeOkAndNoObjectsFoundWithId(String id) throws Exception {
+        try{
+            contextAssembler.find(id);
+        }catch (RuntimeException e){
+            this.actions.andExpect(status().isOk());
+            assertEquals(MSG_NO_COMPLAINTS_FOUND, e.getMessage());
+        }
     }
 }
