@@ -3,10 +3,10 @@ package br.com.reclameaqui.complainsapi.shared;
 public interface Constants {
 
     String BAR = "/";
-    String API_COMPLAINT = "/complaint";
+    String API_COMPLAINT = "/api/complaint";
 
     interface Messages {
-        String MSG_NO_LOCATIONS_FOUND = "No locations found with this id.";
+        String MSG_NO_COMPLAINTS_FOUND = "No complaints found with this id.";
     }
 
     interface Jwt {

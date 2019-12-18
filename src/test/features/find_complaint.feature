@@ -11,4 +11,4 @@ Feature: Find Specific Complaint
     Scenario: 02 - search for non existent complaint
         Given that the complaint entered has id "2"
         Then should return an error with status not found
-        And should return a error message "No locations found with this id."
+        And should return a error message "No complaints found with this id."

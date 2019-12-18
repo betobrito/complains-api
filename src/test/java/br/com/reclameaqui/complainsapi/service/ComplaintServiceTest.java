@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.reclameaqui.complainsapi.shared.Constants.Messages.MSG_NO_LOCATIONS_FOUND;
+import static br.com.reclameaqui.complainsapi.shared.Constants.Messages.MSG_NO_COMPLAINTS_FOUND;
 import static br.com.reclameaqui.complainsapi.shared.TestConstants.Messages.MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED;
 import static br.com.reclameaqui.complainsapi.util.TestConstant.ID_ONE;
 import static br.com.reclameaqui.complainsapi.util.TestConstant.TEST;
@@ -60,7 +60,7 @@ public class ComplaintServiceTest {
             complaintService.find(ID_ONE);
             fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
         } catch (NotFoundException e) {
-            assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());
+            assertEquals(MSG_NO_COMPLAINTS_FOUND, e.getMessage());
         }
     }
 
@@ -91,7 +91,7 @@ public class ComplaintServiceTest {
             complaintService.edit(ID_ONE, this.complaint);
             fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
         } catch (NotFoundException e) {
-            assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());
+            assertEquals(MSG_NO_COMPLAINTS_FOUND, e.getMessage());
         }
     }
 
@@ -133,7 +133,7 @@ public class ComplaintServiceTest {
             complaintService.delete(ID_ONE);
             fail(MSG_THIS_METHOD_SHOULD_NOT_BE_CALLED);
         } catch (NotFoundException e) {
-            assertEquals(MSG_NO_LOCATIONS_FOUND, e.getMessage());
+            assertEquals(MSG_NO_COMPLAINTS_FOUND, e.getMessage());
         }
     }
 }

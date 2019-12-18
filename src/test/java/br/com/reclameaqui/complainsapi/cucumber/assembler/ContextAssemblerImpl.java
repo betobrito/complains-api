@@ -40,4 +40,10 @@ public class ContextAssemblerImpl implements ContextAssembler {
         final Complaint complaint = helperContext.findByTitle(title);
         return ComplaintDTO.of(complaint);
     }
+
+    @Override
+    public ComplaintDTO find(String id) {
+        final Complaint complaint = helperContext.find(id);
+        return null;
+    }
 }
